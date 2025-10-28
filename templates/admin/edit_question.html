@@ -1,0 +1,38 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}تعديل السؤال (ID: {{ question.id }}){% endblock %}
+
+{% block content %}
+    <h2>تعديل السؤال للاختبار: "{{ question.test_name }}"</h2>
+    <p><a href="{{ url_for('admin.manage_questions', test_id=question.test_id) }}" class="back-link">&laquo; العودة لقائمة أسئلة الاختبار</a></p>
+
+    <form method="post"> {# سيرسل البيانات لنفس الرابط الحالي (edit_question) #}
+        <h3>تعديل بيانات السؤال (ID: {{ question.id }})</h3>
+        <div class="form-group">
+            <label for="question_text">نص السؤال:</label>
+            <textarea id="question_text" name="question_text" required rows="3">{{ question.text }}</textarea>
+        </div>
+         <div class="form-group">
+            <label for="option1">الخيار 1:</label>
+            <input type="text" id="option1" name="option1" required value="{{ question.option1 }}">
+        </div>
+         <div class="form-group">
+            <label for="option2">الخيار 2:</label>
+            <input type="text" id="option2" name="option2" required value="{{ question.option2 }}">
+        </div>
+         <div class="form-group">
+            <label for="option3">الخيار 3:</label>
+            <input type="text" id="option3" name="option3" required value="{{ question.option3 }}">
+        </div>
+         <div class="form-group">
+            <label for="option4">الخيار 4:</label>
+            <input type="text" id="option4" name="option4" required value="{{ question.option4 }}">
+        </div>
+         <div class="form-group">
+            <label for="correct_option">الإجابة الصحيحة (يجب أن تطابق نص أحد الخيارات بالضبط):</label>
+            <input type="text" id="correct_option" name="correct_option" required value="{{ question.correct_option }}">
+        </div>
+        <button type="submit">حفظ التعديلات</button>
+    </form>
+
+{% endblock %}

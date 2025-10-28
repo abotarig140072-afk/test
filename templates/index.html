@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+{% block title %}الصفحة الرئيسية{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <div class="p-5 mb-4 bg-light rounded-3 shadow-sm">
+        <div class="container-fluid py-5">
+            <h1 class="display-5 fw-bold">أهلاً بك في منصة اختبارات قياس وتحصيلي</h1>
+            <p class="col-md-8 fs-4 mx-auto">
+                استعد لاختباراتك القادمة من خلال مجموعة متنوعة من الاختبارات التجريبية.
+                سجل دخولك أو أنشئ حساباً جديداً للبدء.
+            </p>
+            <a href="{{ url_for('register') }}" class="btn btn-primary btn-lg me-2">
+               <i class="fas fa-user-plus"></i> تسجيل جديد
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-success btn-lg">
+                <i class="fas fa-sign-in-alt"></i> تسجيل الدخول
+            </a>
+        </div>
+    </div>
+
+    <div class="row align-items-md-stretch">
+      <div class="col-md-6 mb-3">
+        <div class="h-100 p-5 text-bg-dark rounded-3">
+          <h2><i class="fas fa-graduation-cap"></i> اختبارات قياس</h2>
+          <p>تدرب على أسئلة متنوعة في الجزء الكمي واللفظي لتحقيق أفضل أداء في اختبار القدرات العامة.</p>
+          </div>
+      </div>
+      <div class="col-md-6 mb-3">
+        <div class="h-100 p-5 bg-body-tertiary border rounded-3">
+          <h2><i class="fas fa-book-open"></i> اختبارات تحصيلي</h2>
+          <p>راجع معلوماتك وتدرب على أسئلة المواد العلمية استعداداً للاختبار التحصيلي.</p>
+           </div>
+      </div>
+    </div>
+
+</div>
+{% endblock %}

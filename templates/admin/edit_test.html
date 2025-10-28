@@ -1,0 +1,29 @@
+{% extends "admin/admin_base.html" %}
+
+{% block title %}تعديل الاختبار: {{ test.name }}{% endblock %}
+
+{% block content %}
+    <h2>تعديل الاختبار (ID: {{ test.id }})</h2>
+    <p><a href="{{ url_for('admin.manage_tests') }}" class="back-link">&laquo; العودة لقائمة الاختبارات</a></p>
+
+    <form method="post"> {# سيرسل البيانات لنفس الرابط الحالي (edit_test) #}
+        <h3>تعديل بيانات الاختبار</h3>
+        <div class="form-group">
+            <label for="test_name">اسم الاختبار:</label>
+            <input type="text" id="test_name" name="test_name" required value="{{ test.name }}">
+        </div>
+         <div class="form-group">
+            <label for="test_type">نوع الاختبار:</label>
+            <select id="test_type" name="test_type" required>
+                <option value="قياس" {% if test.type == 'قياس' %}selected{% endif %}>قياس</option>
+                <option value="تحصيلي" {% if test.type == 'تحصيلي' %}selected{% endif %}>تحصيلي</option>
+            </select>
+        </div>
+         <div class="form-group">
+            <label for="test_level">المرحلة:</label>
+            <input type="number" id="test_level" name="test_level" required min="1" value="{{ test.level }}">
+        </div>
+        <button type="submit">حفظ التعديلات</button>
+    </form>
+
+{% endblock %}

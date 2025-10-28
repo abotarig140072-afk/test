@@ -1,0 +1,74 @@
+{% extends "layout.html" %}
+{% block title %}نتيجة الاختبار{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-sm text-center">
+        <div class="card-header {% if percentage >= 80 %}bg-success text-white{% elif percentage >= 50 %}bg-warning text-dark{% else %}bg-danger text-white{% endif %}">
+            <h3 class="mb-0">نتيجة اختبار: {{ test_title }}</h3>
+        </div>
+        <div class="card-body">
+            <h4 class="card-title">نتيجتك: {{ score }} / {{ total_questions }}</h4>
+            <p class="display-4 fw-bold">{{ percentage }}%</p>
+
+            <div class="progress mb-4" style="height: 30px;">
+                 <div class="progress-bar {% if percentage >= 80 %}bg-success{% elif percentage >= 50 %}bg-warning{% else %}bg-danger{% endif %}"
+                      role="progressbar" style="width: {{ percentage }}%;"
+                      aria-valuenow="{{ percentage }}" aria-valuemin="0" aria-valuemax="100">
+                      {{ percentage }}%
+                 </div>
+            </div>
+
+            {% if percentage >= 80 %}
+                <p class="fs-5 text-success"><i class="fas fa-check-circle"></i> ممتاز! لقد أبليت حسناً.</p>
+            {% elif percentage >= 50 %}
+                 <p class="fs-5 text-warning"><i class="fas fa-thumbs-up"></i> جيد، يمكنك التحسن أكثر.</p>
+            {% else %}
+                 <p class="fs-5 text-danger"><i class="fas fa-times-circle"></i> حاول مرة أخرى، تحتاج لمزيد من المراجعة.</p>
+            {% endif %}
+
+            <hr>
+
+             <h4 class="mt-4 mb-3">تفاصيل الإجابات:</h4>
+            <div class="accordion" id="resultsAccordion">
+                {% for detail in results_details %}
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="heading{{ loop.index }}">
+                        <button class="accordion-button {% if not detail.is_correct %}collapsed bg-danger-subtle{% endif %}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ loop.index }}" aria-expanded="{{ 'true' if detail.is_correct else 'false' }}" aria-controls="collapse{{ loop.index }}">
+                            السؤال {{ loop.index }}: {{ "صحيح" if detail.is_correct else "خطأ" }}
+                             <i class="fas {{ 'fa-check text-success' if detail.is_correct else 'fa-times text-danger' }} ms-2"></i>
+                        </button>
+                    </h2>
+                    <div id="collapse{{ loop.index }}" class="accordion-collapse collapse {% if detail.is_correct %}show{% endif %}" aria-labelledby="heading{{ loop.index }}" data-bs-parent="#resultsAccordion">
+                        <div class="accordion-body text-end">
+                           <p><strong>السؤال:</strong> {{ detail.question_text }}</p>
+                           <p><strong>إجابتك:</strong>
+                               <span class="{{ 'text-success' if detail.is_correct else 'text-danger' }}">
+                                   {{ detail.submitted_answer }}
+                               </span>
+                           </p>
+                           {% if not detail.is_correct %}
+                           <p><strong>الإجابة الصحيحة:</strong> <span class="text-success">{{ detail.correct_answer }}</span></p>
+                           {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+
+            <div class="mt-4">
+                 <a href="{{ url_for('dashboard') }}" class="btn btn-secondary me-2">
+                    <i class="fas fa-arrow-left"></i> العودة للوحة التحكم
+                 </a>
+                 {% if next_test_id %}
+                     <a href="{{ url_for('take_test', test_id=next_test_id) }}" class="btn btn-primary">
+                         <i class="fas fa-arrow-right"></i> الانتقال للاختبار التالي
+                     </a>
+                 {% endif %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

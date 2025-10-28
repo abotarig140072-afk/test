@@ -1,0 +1,14 @@
+{% extends "admin/admin_base.html" %} {# وراثة من القالب الأساسي للإدارة #}
+
+{% block title %}الرئيسية - لوحة الإدارة{% endblock %}
+
+{% block content %}
+    <h2>أهلاً بك في لوحة الإدارة</h2>
+    <p>من هنا يمكنك إدارة محتوى المنصة.</p>
+    
+    <p style="margin-top: 30px;">
+        <a href="{{ url_for('admin.manage_tests') }}" style="font-size: 1.2em; text-decoration: none; color: #007bff;">&raquo; الانتقال إلى إدارة الاختبارات والأسئلة</a>
+    </p>
+
+    {# يمكن إضافة إحصائيات سريعة هنا لاحقاً (عدد المستخدمين، عدد الاختبارات، ...) #}
+{% endblock %}
